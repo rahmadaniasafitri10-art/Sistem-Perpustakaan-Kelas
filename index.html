@@ -125,37 +125,91 @@ let buku = [
 {
 judul:"Laskar Pelangi",
 penulis:"Andrea Hirata",
-kategori:"Novel"
-},
-
-{
-judul:"Bumi Manusia",
-penulis:"Pramoedya Ananta Toer",
-kategori:"Sejarah"
-},
-
-{
-judul:"Atomic Habits",
-penulis:"James Clear",
-kategori:"Pengembangan Diri"
+kategori:"Novel",
+status:"Tersedia",
+favorite:false,
+cover:"📘"
 },
 
 {
 judul:"Harry Potter",
 penulis:"J.K. Rowling",
-kategori:"Fantasi"
+kategori:"Fantasi",
+status:"Dipinjam",
+favorite:true,
+cover:"⚡"
+},
+
+{
+judul:"Atomic Habits",
+penulis:"James Clear",
+kategori:"Pengembangan Diri",
+status:"Tersedia",
+favorite:false,
+cover:"🧠"
 },
 
 {
 judul:"Dilan 1990",
 penulis:"Pidi Baiq",
-kategori:"Romansa"
+kategori:"Romansa",
+status:"Tersedia",
+favorite:false,
+cover:"💌"
+},
+
+{
+judul:"Bumi",
+penulis:"Tere Liye",
+kategori:"Fantasi",
+status:"Dipinjam",
+favorite:true,
+cover:"🌍"
 },
 
 {
 judul:"Negeri 5 Menara",
 penulis:"Ahmad Fuadi",
-kategori:"Pendidikan"
+kategori:"Pendidikan",
+status:"Tersedia",
+favorite:false,
+cover:"🕌"
+},
+
+{
+judul:"Rich Dad Poor Dad",
+penulis:"Robert Kiyosaki",
+kategori:"Keuangan",
+status:"Tersedia",
+favorite:false,
+cover:"💰"
+},
+
+{
+judul:"The Psychology of Money",
+penulis:"Morgan Housel",
+kategori:"Keuangan",
+status:"Dipinjam",
+favorite:true,
+cover:"💵"
+},
+
+{
+judul:"Ayat-Ayat Cinta",
+penulis:"Habiburrahman El Shirazy",
+kategori:"Religi",
+status:"Tersedia",
+favorite:false,
+cover:"🤍"
+},
+
+{
+judul:"One Piece",
+penulis:"Eiichiro Oda",
+kategori:"Komik",
+status:"Dipinjam",
+favorite:true,
+cover:"🏴‍☠️"
 }
 
 ];
@@ -205,6 +259,8 @@ list.innerHTML += `
 
 <div class="card">
 
+<h1>${item.cover}</h1>
+
 <h2>${item.judul}</h2>
 
 <p><b>Penulis:</b>
@@ -212,6 +268,21 @@ ${item.penulis}</p>
 
 <p><b>Kategori:</b>
 ${item.kategori}</p>
+
+<p>
+<b>Status:</b>
+${item.status}
+</p>
+
+<p>
+${item.favorite ? "⭐ Favorite" : ""}
+</p>
+
+<button onclick="toggleFavorite(${index})">
+
+❤️ Favorite
+
+</button>
 
 <button class="hapus"
 onclick="hapusBuku(${index})">
@@ -232,6 +303,15 @@ document.getElementById("total")
 }
 
 function hapusBuku(index){
+
+function toggleFavorite(index){
+
+buku[index].favorite =
+!buku[index].favorite;
+
+tampilkanBuku(buku);
+
+}
 
 buku.splice(index,1);
 
