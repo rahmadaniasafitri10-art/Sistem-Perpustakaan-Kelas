@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartClass Library</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:linear-gradient(135deg,#60a5fa,#dbeafe);
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+h1{
+text-align:center;
+color:#1e3a8a;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:2px solid #93c5fd;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.card{
+background:#eff6ff;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+border-left:8px solid #2563eb;
+}
+
+.card h2{
+color:#1e3a8a;
+margin-bottom:5px;
+}
+
+.hapus{
+margin-top:10px;
+background:#dc2626;
+}
+
+.total{
+margin-top:15px;
+color:#1e3a8a;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 SmartClass Library</h1>
+
+<input type="text" id="judul" placeholder="Judul Buku">
+
+<input type="text" id="penulis" placeholder="Nama Penulis">
+
+<input type="text" id="kategori" placeholder="Kategori Buku">
+
+<button onclick="tambahBuku()">
+Tambah Buku
+</button>
+
+<br><br>
+
+<input type="text"
+id="search"
+placeholder="Cari Buku..."
+onkeyup="cariBuku()">
+
+<div class="total">
+Total Buku :
+<span id="total">0</span>
+</div>
+
+<div id="listBuku"></div>
+
+</div>
+
+<script>
+
+let buku = [];
+
+function tambahBuku(){
+
+let judul =
+document.getElementById("judul").value;
+
+let penulis =
+document.getElementById("penulis").value;
+
+let kategori =
+document.getElementById("kategori").value;
+
+if(judul=="" || penulis=="" || kategori==""){
+alert("Isi semua data!");
+return;
+}
+
+buku.push({
+judul:judul,
+penulis:penulis,
+kategori:kategori
+});
+
+tampilkanBuku(buku);
+
+document.getElementById("judul").value="";
+document.getElementById("penulis").value="";
+document.getElementById("kategori").value="";
+
+}
+
+function tampilkanBuku(data){
+
+let list =
+document.getElementById("listBuku");
+
+list.innerHTML="";
+
+data.forEach((item,index)=>{
+
+list.innerHTML += `
+
+<div class="card">
+
+<h2>${item.judul}</h2>
+
+<p><b>Penulis:</b>
+${item.penulis}</p>
+
+<p><b>Kategori:</b>
+${item.kategori}</p>
+
+<button class="hapus"
+onclick="hapusBuku(${index})">
+
+Hapus Buku
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total")
+.innerText=data.length;
+
+}
+
+function hapusBuku(index){
+
+buku.splice(index,1);
+
+tampilkanBuku(buku);
+
+}
+
+function cariBuku(){
+
+let keyword =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+let hasil = buku.filter(item =>
+item.judul.toLowerCase()
+.includes(keyword)
+);
+
+tampilkanBuku(hasil);
+
+}
+
+</script>
+
+</body>
+  </html>
