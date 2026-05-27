@@ -304,6 +304,12 @@ document.getElementById("total")
 
 function hapusBuku(index){
 
+buku.splice(index,1);
+
+tampilkanBuku(buku);
+
+}
+
 function toggleFavorite(index){
 
 buku[index].favorite =
@@ -312,13 +318,6 @@ buku[index].favorite =
 tampilkanBuku(buku);
 
 }
-
-buku.splice(index,1);
-
-tampilkanBuku(buku);
-
-}
-
 function cariBuku(){
 
 let keyword =
