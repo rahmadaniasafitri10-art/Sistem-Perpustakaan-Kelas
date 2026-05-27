@@ -259,7 +259,9 @@ list.innerHTML += `
 
 <div class="card">
 
-<img src="${item.cover}" width="120">
+${item.cover.startsWith("http")
+? `<img src="${item.cover}" width="120">`
+: `<h1>${item.cover}</h1>`}
 <h2>${item.judul}</h2>
 
 <p><b>Penulis:</b>
