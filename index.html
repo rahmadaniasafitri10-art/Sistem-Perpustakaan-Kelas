@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Digital Library X-4</title>
+
 <style>
 
 *{
@@ -15,7 +16,7 @@ font-family:Arial;
 }
 
 body{
-background:linear-gradient(135deg,#60a5fa,#dbeafe);
+background:linear-gradient(135deg,#f9a8d4,#fbcfe8);
 min-height:100vh;
 padding:20px;
 }
@@ -25,13 +26,13 @@ max-width:700px;
 margin:auto;
 background:white;
 padding:25px;
-border-radius:20px;
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
+border-radius:25px;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
 h1{
 text-align:center;
-color:#1e3a8a;
+color:#be185d;
 margin-bottom:20px;
 }
 
@@ -39,47 +40,104 @@ input{
 width:100%;
 padding:12px;
 margin-bottom:10px;
-border:2px solid #93c5fd;
-border-radius:10px;
+border:2px solid #f9a8d4;
+border-radius:12px;
+outline:none;
+font-size:15px;
+}
+
+input:focus{
+border-color:#ec4899;
+box-shadow:0 0 10px #f9a8d4;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#2563eb;
+background:#ec4899;
 color:white;
 border:none;
-border-radius:10px;
+border-radius:12px;
 font-weight:bold;
 cursor:pointer;
+transition:0.3s;
+font-size:15px;
 }
 
 button:hover{
-background:#1d4ed8;
+background:#db2777;
+transform:scale(1.02);
 }
 
 .card{
-background:#eff6ff;
+background:#fdf2f8;
 padding:15px;
-border-radius:15px;
+border-radius:20px;
 margin-top:15px;
-border-left:8px solid #2563eb;
+border-left:8px solid #ec4899;
+transition:0.3s;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.card:hover{
+transform:scale(1.03);
 }
 
 .card h2{
-color:#1e3a8a;
+color:#be185d;
 margin-bottom:5px;
+}
+
+.cover{
+width:120px;
+border-radius:15px;
+margin-bottom:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.2);
 }
 
 .hapus{
 margin-top:10px;
+background:#ef4444;
+}
+
+.hapus:hover{
 background:#dc2626;
+}
+
+.favoriteBtn{
+margin-top:10px;
+background:#f472b6;
+}
+
+.favoriteBtn:hover{
+background:#ec4899;
+}
+
+.pinjamBtn{
+margin-top:10px;
+background:#c084fc;
+}
+
+.pinjamBtn:hover{
+background:#a855f7;
 }
 
 .total{
 margin-top:15px;
-color:#1e3a8a;
+color:#be185d;
 font-weight:bold;
+font-size:18px;
+}
+
+.status{
+margin-top:5px;
+font-weight:bold;
+}
+
+.favoriteText{
+color:#f59e0b;
+font-weight:bold;
+margin-top:5px;
 }
 
 </style>
@@ -89,7 +147,7 @@ font-weight:bold;
 
 <div class="container">
 
-<h1>📚 Digital Library X-4</h1>
+<h1>🌸 Digital Library X-4 🌸</h1>
 
 <input type="text" id="judul" placeholder="Judul Buku">
 
@@ -98,18 +156,18 @@ font-weight:bold;
 <input type="text" id="kategori" placeholder="Kategori Buku">
 
 <button onclick="tambahBuku()">
-Tambah Buku
+➕ Tambah Buku
 </button>
 
 <br><br>
 
 <input type="text"
 id="search"
-placeholder="Cari Buku..."
+placeholder="🔍 Cari Buku..."
 onkeyup="cariBuku()">
 
 <div class="total">
-Total Buku :
+📚 Total Buku :
 <span id="total">0</span>
 </div>
 
@@ -154,7 +212,7 @@ penulis:"Pidi Baiq",
 kategori:"Romansa",
 status:"Tersedia",
 favorite:false,
-cover:"https://cdn.gramedia.com/uploads/items/9786027870413_Dilan-1990.jpg"
+cover:"https://i.imgur.com/jZQZ6GZ.jpeg"
 },
 
 {
@@ -163,7 +221,7 @@ penulis:"Tere Liye",
 kategori:"Fantasi",
 status:"Dipinjam",
 favorite:true,
-cover:"https://cdn.gramedia.com/uploads/items/9786020332956_Bumi.jpg"
+cover:"https://i.imgur.com/5KXQw7B.jpeg"
 },
 
 {
@@ -172,7 +230,7 @@ penulis:"Ahmad Fuadi",
 kategori:"Pendidikan",
 status:"Tersedia",
 favorite:false,
-cover:"https://cdn.gramedia.com/uploads/items/9789791227209_negeri-5-menara.jpg"
+cover:"https://i.imgur.com/7xJ6X8M.jpeg"
 },
 
 {
@@ -199,7 +257,7 @@ penulis:"Habiburrahman El Shirazy",
 kategori:"Religi",
 status:"Tersedia",
 favorite:false,
-cover:"https://cdn.gramedia.com/uploads/items/9789793604855_Ayat-Ayat-Cinta.jpg"
+cover:"https://i.imgur.com/2X7Qw0M.jpeg"
 },
 
 {
@@ -208,7 +266,7 @@ penulis:"Eiichiro Oda",
 kategori:"Komik",
 status:"Dipinjam",
 favorite:true,
-cover:"https://m.media-amazon.com/images/I/91IJH+932qL._UF1000,1000_QL80_.jpg"
+cover:"https://i.imgur.com/jX9Q2gW.jpeg"
 }
 
 ];
@@ -234,7 +292,10 @@ return;
 buku.push({
 judul:judul,
 penulis:penulis,
-kategori:kategori
+kategori:kategori,
+status:"Tersedia",
+favorite:false,
+cover:"https://via.placeholder.com/120x180.png?text=Buku"
 });
 
 tampilkanBuku(buku);
@@ -258,36 +319,42 @@ list.innerHTML += `
 
 <div class="card">
 
-${item.cover.startsWith("http")
-? `<img src="${item.cover}" width="120">`
-: `<h1>${item.cover}</h1>`}
+<img src="${item.cover}" class="cover">
+
 <h2>${item.judul}</h2>
 
-<p><b>Penulis:</b>
+<p><b>✍ Penulis:</b>
 ${item.penulis}</p>
 
-<p><b>Kategori:</b>
+<p><b>📂 Kategori:</b>
 ${item.kategori}</p>
 
-<p>
-<b>Status:</b>
-${item.status}
+<p class="status">
+📌 ${item.status}
 </p>
 
-<p>
+<p class="favoriteText">
 ${item.favorite ? "⭐ Favorite" : ""}
 </p>
 
-<button onclick="toggleFavorite(${index})">
+<button class="favoriteBtn"
+onclick="toggleFavorite(${index})">
 
-❤️ Favorite
+💖 Favorite
+
+</button>
+
+<button class="pinjamBtn"
+onclick="togglePinjam(${index})">
+
+📚 Pinjam / Kembalikan
 
 </button>
 
 <button class="hapus"
 onclick="hapusBuku(${index})">
 
-Hapus Buku
+🗑 Hapus Buku
 
 </button>
 
@@ -318,6 +385,23 @@ buku[index].favorite =
 tampilkanBuku(buku);
 
 }
+
+function togglePinjam(index){
+
+if(buku[index].status=="Tersedia"){
+
+buku[index].status="Dipinjam";
+
+}else{
+
+buku[index].status="Tersedia";
+
+}
+
+tampilkanBuku(buku);
+
+}
+
 function cariBuku(){
 
 let keyword =
@@ -337,4 +421,4 @@ tampilkanBuku(hasil);
 </script>
 
 </body>
-  </html>
+</html>
